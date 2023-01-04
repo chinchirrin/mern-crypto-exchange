@@ -2,7 +2,7 @@
  * Helper service for generating crypto exchange rates given a valid
  * base currency (USD, EUR, GBP)
  *
- * It uses a base value of a given cryto currency and generates a new value
+ * It uses a base value of a given crypto currency and generates a new value
  * in the range of ±10%
  */
 import { BadRequestException, Injectable } from '@nestjs/common';
