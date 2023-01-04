@@ -1,3 +1,4 @@
+import {HttpModule} from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CurrencyExchangeService } from './currency-exchange.service';
@@ -14,6 +15,7 @@ import {
         schema: CurrencyExchangeSchema,
       },
     ]),
+    HttpModule,
   ],
   providers: [CurrencyExchangeService, CurrencyExchange],
   exports: [CurrencyExchangeService, CurrencyExchangeModule],
