@@ -56,7 +56,7 @@ export class CurrencyExchangeService {
    * Helper method for pulling all crypto prices for the full list of base
    * currencies
    */
-  async fetchCryptoPrice(
+  async fetchCryptoPrices(
     baseCurrencies: Array<string>,
   ): Promise<CurrencyExchangeDto[]> {
     const prices: Array<CurrencyExchangeDto> = [];
