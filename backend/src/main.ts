@@ -5,6 +5,7 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
 
   // enable auto-validation, used for validating dto's
   app.useGlobalPipes(new ValidationPipe());
