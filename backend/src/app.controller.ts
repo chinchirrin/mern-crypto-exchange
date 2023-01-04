@@ -1,12 +1,14 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { CurrencyExchangeService } from './currency-exchange/currency-exchange.service';
 
-@Controller()
+@Controller('/api/v1/currency-exchange')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly currencyExchangeService: CurrencyExchangeService
+  ) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('historical')
+  getHistorical(): string {
+    return this.currencyExchangeService.getHistorical();
   }
 }
