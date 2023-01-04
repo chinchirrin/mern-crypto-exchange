@@ -31,7 +31,7 @@ export class CurrencyExchangeService {
    * exchanges and live prices pulled from an API
    */
   getHistorical(): Promise<CurrencyExchange[]> {
-    return this.currencyExchangeModel.find().exec();
+    return this.currencyExchangeModel.find().sort({ datetime: -1 }).exec();
   }
 
   /**
