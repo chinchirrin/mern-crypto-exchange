@@ -35,6 +35,21 @@ export class CurrencyExchangeService {
   }
 
   /**
+   * Persist a record with the price of a unit of crypto currency in a base
+   * currency
+   */
+  async createCurrencyExchange(
+    exchangeRate: CurrencyExchangeDto,
+  ): Promise<CurrencyExchange> {
+    const newRecord = new this.currencyExchangeModel(exchangeRate);
+
+    console.log('Saving new record ...');
+    console.log(exchangeRate);
+
+    return newRecord.save();
+  }
+
+  /**
    * Pull crypto currencies prices from a remote API and save them in our local
    * storage
    */
@@ -43,7 +58,7 @@ export class CurrencyExchangeService {
 
     const saved = [];
     for (const price of cryptoPrices) {
-      saved.push(await this.createLivePrice(price));
+      saved.push(await this.createCurrencyExchange(price));
     }
 
     return {
@@ -102,17 +117,5 @@ export class CurrencyExchangeService {
     );
 
     return data;
-  }
-
-  /**
-   * Persist a record with the price of a unit of crypto currency in a base
-   * currency
-   */
-  async createLivePrice(
-    exchangeRate: CurrencyExchangeDto,
-  ): Promise<CurrencyExchange> {
-    const newRecord = new this.currencyExchangeModel(exchangeRate);
-
-    return newRecord.save();
   }
 }
