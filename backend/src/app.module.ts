@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { CurrencyExchangeModule } from './currency-exchange/currency-exchange.module';
+import { CryptoPricesModule } from './crypto-prices/crypto-prices.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { CurrencyExchangeModule } from './currency-exchange/currency-exchange.mo
     }),
     MongooseModule.forRoot('mongodb://localhost:27017/nest'),
     CurrencyExchangeModule,
+    CryptoPricesModule,
   ],
   controllers: [AppController],
 })
