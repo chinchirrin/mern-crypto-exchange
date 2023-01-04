@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { CurrencyExchangeModule } from './currency-exchange/currency-exchange.module';
 import { CryptoPricesModule } from './crypto-prices/crypto-prices.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { GatewayModule } from './gateway/gateway.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     ScheduleModule.forRoot(),
     CurrencyExchangeModule,
     CryptoPricesModule,
+    GatewayModule,
   ],
   controllers: [AppController],
 })
