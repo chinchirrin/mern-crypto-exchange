@@ -26,12 +26,16 @@ export const HistoricalTable = () => {
 
   useEffect(() => {
     const endpoint = process.env.REACT_APP_HISTORICAL || '';
+    /**
+     * Fetch data from the server to update dataGrid
+     */
     const getData = async () => {
-      console.log('Fetching data to refresh dataGrid!!!');
+      console.log('Fetching data to refresh dataGrid');
 
       await axios.get(endpoint).then((response) => {
         const data = response.data;
 
+        // update datagrid
         setRecords(data);
       });
     }
@@ -43,12 +47,12 @@ export const HistoricalTable = () => {
     });
 
     socket.on('newLivePrices', () => {
-      console.log('"newLivePrices" received, refresh data grid!');
+      console.log('"newLivePrices" received');
       getData();
     });
 
     socket.on('receivedNewRecord', () => {
-      console.log('"receivedNewRecord" received, refresh data grid!');
+      console.log('"receivedNewRecord" received');
       getData();
     });
 
