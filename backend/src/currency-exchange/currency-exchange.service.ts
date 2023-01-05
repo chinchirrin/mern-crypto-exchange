@@ -9,6 +9,7 @@ import {
   CryptoCurrencies,
 } from 'src/common/constants/currencies';
 import { Messages } from 'src/common/constants/messages';
+import { GatewayService } from 'src/gateway/gateway.service';
 import { CurrencyExchangeDto } from './dto/currency-exchange.dto';
 import {
   CurrencyExchange,
@@ -24,6 +25,7 @@ export class CurrencyExchangeService {
     private readonly currencyExchangeModel: Model<CurrencyExchangeDocument>,
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
+    private readonly gatewayService: GatewayService,
   ) {}
 
   /**
@@ -41,12 +43,11 @@ export class CurrencyExchangeService {
   async createCurrencyExchange(
     exchangeRate: CurrencyExchangeDto,
   ): Promise<CurrencyExchange> {
-    const newRecord = new this.currencyExchangeModel(exchangeRate);
+    const result = this.createRecord(exchangeRate);
 
-    console.log('Saving new record ...');
-    console.log(exchangeRate);
+    this.gatewayService.broadcastNewRecord(result);
 
-    return newRecord.save();
+    return result;
   }
 
   /**
@@ -58,13 +59,26 @@ export class CurrencyExchangeService {
 
     const saved = [];
     for (const price of cryptoPrices) {
-      saved.push(await this.createCurrencyExchange(price));
+      saved.push(await this.createRecord(price));
     }
+
+    this.gatewayService.broadcastBatchUpdate(saved);
 
     return {
       message: 'Latest crypto prices were added successfully.',
       data: saved,
     };
+  }
+
+  async createRecord(
+    exchangeRate: CurrencyExchangeDto,
+  ): Promise<CurrencyExchange> {
+    const newRecord = new this.currencyExchangeModel(exchangeRate);
+
+    console.log('Saving new record ...');
+    console.log(exchangeRate);
+
+    return newRecord.save();
   }
 
   /**
