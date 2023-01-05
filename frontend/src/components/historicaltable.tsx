@@ -24,31 +24,44 @@ export const HistoricalTable = () => {
   // config hooks
   const [records, setRecords] = useState([]);
 
-  const endpoint = process.env.REACT_APP_HISTORICAL || '';
-  const getData = async () => {
-    await axios.get(endpoint).then((response) => {
-      const data = response.data;
-
-      setRecords(data);
-    });
-  }
-
   useEffect(() => {
-    getData()
+    const endpoint = process.env.REACT_APP_HISTORICAL || '';
+    const getData = async () => {
+      console.log('Fetching data to refresh dataGrid!!!');
 
-    socket.on('onUpdateData', () => {
-      console.log('onUpdateData event received: time to refresh data grid!!!');
+      await axios.get(endpoint).then((response) => {
+        const data = response.data;
+
+        setRecords(data);
+      });
+    }
+
+    getData();
+
+    socket.on('connect', () => {
+      console.log('connected to socket from DataGrid ...');
+    });
+
+    socket.on('newLivePrices', () => {
+      console.log('"newLivePrices" received, refresh data grid!');
       getData();
     });
 
-    // clean-up registered sockets
+    socket.on('receivedNewRecord', () => {
+      console.log('"receivedNewRecord" received, refresh data grid!');
+      getData();
+    });
+
+
+    // cleanup registered sockets
     return () => {
       console.log('Unregistering events from socket (HistoricalTable)');
 
       socket.off('connect');
-      socket.off('onUpdateData');
+      socket.off('receivedNewRecord');
+      socket.off('newLivePrices');
     };
-  }, []);
+  }, [socket]);
 
   return (
     <div style={{ height:400, width: '100%' }}>
