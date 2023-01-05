@@ -108,24 +108,6 @@ export const Toolbar = () => {
       .catch((err) => console.log(err));
   };
 
-  useEffect(() => {
-    socket.on('connect', () => {
-      console.log('connected to socket from Toolbar ...');
-    });
-
-    socket.on('onNewRecord', (data: object) => {
-      console.log('onNewRecord event received: time to refresh data grid!!!');
-      console.log(data);
-    });
-
-    return () => {
-      console.log('Unregistering events from socket (Toolbar)');
-
-      socket.off('connect');
-      socket.off('onNewRecord');
-    };
-  }, []);
-
   return (
     <Box
       component={"form"}
