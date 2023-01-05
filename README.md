@@ -38,3 +38,7 @@ This widget will be used to display several currency exchanges rates and it will
 > cd frontend
 > PORT=3009 npm start
 ```
+
+## Notes
+
+- It is assumed the MongoDB instance is running on `localhost:27017/nest`
