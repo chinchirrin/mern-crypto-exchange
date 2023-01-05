@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import React from 'react';
 import { Box, Button, MenuItem, TextField } from '@mui/material';
 import axios from 'axios';
@@ -38,6 +38,9 @@ type ExchangeInputs = {
     type: string,
 };
 
+/**
+ * Renders the input form for adding a new crypto currency exchange
+ */
 export const Toolbar = () => {
   const socket = useContext(WebSocketContext);
 
@@ -49,6 +52,10 @@ export const Toolbar = () => {
     type: 'Exchanged',
   });
 
+  /**
+   * Updates the payload to be sent to the POST request for creating a new
+   * currency exhcange record
+   */
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -58,6 +65,9 @@ export const Toolbar = () => {
     });
   };
 
+  /**
+   * Validate numeric values for amount inputs
+   */
   const handleNumericInput = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (!/[0-9]/.test(event.key)) {
       event.preventDefault();
@@ -70,16 +80,21 @@ export const Toolbar = () => {
     addCurrencyExchange(state);
   };
 
-  const addCurrencyExchange = (data: object) => {
+  /**
+   * Make a POST request for creating a new currency exchange record
+   */
+  const addCurrencyExchange = (data: object): void => {
     const endpoint = process.env.REACT_APP_CREATE_EXCHANGE || '';
 
     axios
       .post(endpoint, data)
       .then((res) => {
         if (res.data) {
+
+          console.log('Currency exchange was saved...');
           console.log(res.data);
 
-          socket.emit('newRecord');
+          socket.emit('newRecord', res.data);
 
           setState({
             currency_from: '',
