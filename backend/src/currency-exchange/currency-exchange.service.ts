@@ -45,8 +45,6 @@ export class CurrencyExchangeService {
   ): Promise<CurrencyExchange> {
     const result = this.createRecord(exchangeRate);
 
-    this.gatewayService.broadcastNewRecord(result);
-
     return result;
   }
 
@@ -120,6 +118,7 @@ export class CurrencyExchangeService {
       'CRYPTO_EXCHANGE_API_URL',
     );
     const url = `${cryptoExchangeApiUrl}/${baseCurrency}`;
+
     const { data } = await lastValueFrom(
       this.httpService.get(url).pipe(
         catchError((error) => {
