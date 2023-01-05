@@ -30,8 +30,6 @@ const currencies = [
   },
 ];
 
-// @TODO: remove all console.log lines
-
 type ExchangeInputs = {
     currency_from: string,
     amount_from: string,
@@ -58,9 +56,6 @@ export const Toolbar = () => {
     setState((current) => {
       return {...current, [name]: value};
     });
-
-    // console.log('handle change event was triggered!');
-    // console.log(state);
   };
 
   const handleNumericInput = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -72,16 +67,10 @@ export const Toolbar = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // console.log('Submitting data:');
-    // console.log(state);
-
     addCurrencyExchange(state);
   };
 
   const addCurrencyExchange = (data: object) => {
-    // console.log('Saving exchange ...');
-    // console.log(data);
-
     const endpoint = process.env.REACT_APP_CREATE_EXCHANGE || '';
 
     axios
@@ -140,7 +129,6 @@ export const Toolbar = () => {
           id="currency_from"
           name="currency_from"
           label="Currency from"
-          // defaultValue=""
           value={state.currency_from}
           onChange={handleChange}
         >
@@ -155,7 +143,6 @@ export const Toolbar = () => {
           id="amount_from"
           name="amount_from"
           label="Amount"
-          // defaultValue="1"
           value={state.amount_from}
           onChange={handleChange}
           onKeyPress={handleNumericInput}
@@ -167,7 +154,6 @@ export const Toolbar = () => {
           id="currency_to"
           name="currency_to"
           label="Currency to"
-          // defaultValue=""
           value={state.currency_to}
           onChange={handleChange}
         >
