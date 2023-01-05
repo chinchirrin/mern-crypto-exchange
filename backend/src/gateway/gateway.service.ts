@@ -17,9 +17,23 @@ export class GatewayService {
 
   @WebSocketServer() webSocket: Server;
 
-  @SubscribeMessage('updateData')
-  broadcastUpdate() {
-    this.webSocket.emit('onUpdateData');
-    this.logger.log('updateData message was broadcasted to clients!');
+  /**
+   * Will be used to broadcast that new crypto prices have been pulled from an
+   * API endpoint
+   */
+  broadcastBatchUpdate(payload: object) {
+    this.webSocket.emit('onUpdatedPrices', payload);
+
+    this.logger.log('"onUpdatedPrices" was broadcasted ...');
+  }
+
+  /**
+   * Broadcast to clients that a batch insert of crypto prices has been made
+   * They can pull the latest data
+   */
+  broadcastNewRecord(payload: object) {
+    this.webSocket.emit('onNewRecord', payload);
+
+    this.logger.log('"onNewRecord" was broadcasted ...');
   }
 }
