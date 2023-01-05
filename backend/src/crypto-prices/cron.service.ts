@@ -11,7 +11,7 @@ export class CronService {
   ) {}
 
   /**
-   * Fetch crypto live prices every five minutes
+   * Fetch crypto live prices on an interval basis, time in millisecons
    */
   @Interval('livepricesupdates', 1000 * 60 * 5)
   scheduledLivePrices() {
