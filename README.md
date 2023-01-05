@@ -4,17 +4,21 @@ NestJS is used instead of Express.js
 
 ## Description
 
+This widget will be used to display several currency exchanges rates and it will allow the user to exchange USD for
+Crypto. The application consists of a React front-end client and a Node back-end service (Nest.js).
+
 ## Installation
 
-Backend:
+### Backend
+
 ```
 > cd backend
 > cp .env.dist .env
 > npm install
 ```
 
+### Frontend
 
-Frontend:
 ```
 > cd frontend
 > npm install
@@ -22,13 +26,14 @@ Frontend:
 
 ## Running the app
 
-Backend:
+### Backend
 ```
 > cd backend
 > npm start
 ```
 
-Frontend:
+### Frontend
+
 ```
 > cd frontend
 > PORT=3009 npm start
