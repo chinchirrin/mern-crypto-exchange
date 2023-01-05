@@ -74,9 +74,6 @@ export class CurrencyExchangeService {
     exchangeRate.datetime = new Date();
     const newRecord = new this.currencyExchangeModel(exchangeRate);
 
-    console.log('Saving new record ...');
-    console.log(exchangeRate);
-
     return newRecord.save();
   }
 
