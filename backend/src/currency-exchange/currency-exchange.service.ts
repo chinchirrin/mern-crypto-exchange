@@ -60,7 +60,7 @@ export class CurrencyExchangeService {
       saved.push(await this.createRecord(price));
     }
 
-    this.gatewayService.broadcastBatchUpdate(saved);
+    this.gatewayService.emitNewLivePrices(saved);
 
     return {
       message: 'Latest crypto prices were added successfully.',

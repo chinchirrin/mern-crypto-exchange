@@ -18,22 +18,24 @@ export class GatewayService {
   @WebSocketServer() webSocket: Server;
 
   /**
-   * Will be used to broadcast that new crypto prices have been pulled from an
-   * API endpoint
-   */
-  broadcastBatchUpdate(payload: object) {
-    this.webSocket.emit('onUpdatedPrices', payload);
-
-    this.logger.log('"onUpdatedPrices" was broadcasted ...');
-  }
-
-  /**
    * Broadcast to clients that a batch insert of crypto prices has been made
    * They can pull the latest data
    */
-  broadcastNewRecord(payload: object) {
-    this.webSocket.emit('onNewRecord', payload);
+  @SubscribeMessage('newRecord')
+  broadcastNewRecord() {
+    this.logger.log('"receivedNewRecord" was broadcasted ...');
 
-    this.logger.log('"onNewRecord" was broadcasted ...');
+    this.webSocket.emit('receivedNewRecord');
+  }
+
+  /**
+   * Will be used to broadcast that new crypto prices have been pulled from an
+   * API endpoint
+   */
+  emitNewLivePrices(payload: Array<object>) {
+    this.webSocket.emit('newLivePrices', payload);
+
+    this.logger.log('"newLivePrices" was broadcasted ...');
+    this.logger.log(payload.slice(0, 1));
   }
 }
