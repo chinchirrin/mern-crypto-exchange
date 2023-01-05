@@ -5,7 +5,7 @@ export type CurrencyExchangeDocument = HydratedDocument<CurrencyExchange>;
 
 @Schema()
 export class CurrencyExchange {
-  @Prop({ required: true, default: Date.now() })
+  @Prop({ required: true })
   datetime: Date;
 
   @Prop({ required: true, uppercase: true, trim: true })

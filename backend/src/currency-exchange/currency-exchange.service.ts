@@ -71,6 +71,7 @@ export class CurrencyExchangeService {
   async createRecord(
     exchangeRate: CurrencyExchangeDto,
   ): Promise<CurrencyExchange> {
+    exchangeRate.datetime = new Date();
     const newRecord = new this.currencyExchangeModel(exchangeRate);
 
     console.log('Saving new record ...');
@@ -103,6 +104,7 @@ export class CurrencyExchangeService {
           currency_to: currencyRates['base'],
           amount_to: 1 / currencyRates['rates'][key],
           type: 'Live Price',
+          datetime: null, // this will be set by `createRecord` method
         });
       }
     }
