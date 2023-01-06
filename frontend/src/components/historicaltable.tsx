@@ -68,13 +68,13 @@ export const HistoricalTable = () => {
   }, [socket]);
 
   return (
-    <div style={{ height:400, width: '100%' }}>
+    <div style={{ height:600, width: '100%' }}>
       <DataGrid
         getRowId={(row) => row._id}
         rows={records}
         columns={columns}
-        pageSize={15}
-        rowsPerPageOptions={[15]}
+        pageSize={25}
+        rowsPerPageOptions={[25]}
       />
     </div>
   );
