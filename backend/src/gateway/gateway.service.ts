@@ -36,6 +36,5 @@ export class GatewayService {
     this.webSocket.emit('newLivePrices', payload);
 
     this.logger.log('"newLivePrices" was broadcasted ...');
-    this.logger.log(payload.slice(0, 1));
   }
 }
