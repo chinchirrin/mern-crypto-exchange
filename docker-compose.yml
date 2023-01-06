@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  backend:
+    image: node:lts
+    container_name: crypto-exchange-be
+    command: sh -c "npm install && npm start"
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    ports:
+      - 3005:3005
+    depends_on:
+      - mongodb
+    environment:
+      - NODE_ENV=development
+    networks:
+      - crypto-exchange-network
+
+  client:
+    image: node:lts
+    container_name: crypto-exchange-fe
+    command: sh -c "npm install && PORT=3009 npm start"
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+    ports:
+      - 3009:3009
+    networks:
+      - crypto-exchange-network
+
+  mongodb:
+    image: mongo
+    container_name: crypto-exchange-mongodb
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - cryptoexchange-mongodb-data:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - crypto-exchange-network
+    restart: unless-stopped
+
+networks:
+  crypto-exchange-network:
+
+volumes:
+  cryptoexchange-mongodb-data:
+
