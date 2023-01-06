@@ -41,4 +41,4 @@ This widget will be used to display several currency exchanges rates and it will
 
 ## Notes
 
-- It is assumed the MongoDB instance is running on `localhost:27017/nest`
+- It is assumed MongoDB runs on `localhost:27017/nest`
