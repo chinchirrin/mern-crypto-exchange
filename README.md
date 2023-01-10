@@ -6,9 +6,22 @@ NestJS is used instead of Express.js
 
 This widget will be used to display several currency exchanges rates and it will allow the user to exchange USD for Crypto. The application consists of a React front-end client and a Node back-end service (Nest.js)
 
-## Installation
+## Deploying with Docker compose
 
-### Back-end
+Provision `.env` file for backend (node.js/nestjs):
+```
+> cd backend
+> cp .env.dist .env
+```
+
+Bring the app up with docker compose:
+```
+> docker-compose up
+```
+
+## Manual install
+
+#### Back-end
 
 ```
 > cd backend
@@ -16,29 +29,29 @@ This widget will be used to display several currency exchanges rates and it will
 > npm install
 ```
 
-### Front-end
+#### Front-end
 
 ```
 > cd frontend
 > npm install
 ```
 
-## Running the app
+### Running the app
 
-### Back-end
+#### Back-end
 
 ```
 > cd backend
 > npm start
 ```
 
-### Front-end
+#### Front-end
 
 ```
 > cd frontend
 > PORT=3009 npm start
 ```
 
-## Notes
+### Database
 
-- It is assumed MongoDB runs on `localhost:27017/nest`
+It is assumed MongoDB runs on `localhost:27017/cryptoexchangedb`
