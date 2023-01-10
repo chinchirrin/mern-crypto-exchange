@@ -19,7 +19,7 @@ Bring the app up with docker compose:
 > docker-compose up
 ```
 
-## Manual install
+## Manual install
 
 #### Back-end
 
