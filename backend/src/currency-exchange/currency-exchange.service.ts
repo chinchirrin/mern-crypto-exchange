@@ -113,13 +113,11 @@ export class CurrencyExchangeService {
    * Fetch the crypto prices for a given base currency from a remote API
    */
   async getCryptoPrices(baseCurrency: string): Promise<object> {
-    const cryptoExchangeApiUrl = this.configService.get(
-      'CRYPTO_EXCHANGE_API_URL',
-    );
-    const url = `${cryptoExchangeApiUrl}/${baseCurrency}`;
+    const host = this.configService.get('CRYPTO_API_HOST');
+    const cryptoExchangeApiUrl = `//${host}/api/v1/crypto-prices/${baseCurrency}`;
 
     const { data } = await lastValueFrom(
-      this.httpService.get(url).pipe(
+      this.httpService.get(cryptoExchangeApiUrl).pipe(
         catchError((error) => {
           this.logger.error(error);
           const errorMessage = Messages['pull_crypto_price_error'];
