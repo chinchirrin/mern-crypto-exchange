@@ -11,7 +11,7 @@ services:
     ports:
       - 3005:3005
     depends_on:
-      - mongodb
+      - cryptoexchangedb
     environment:
       - NODE_ENV=development
     networks:
@@ -31,12 +31,13 @@ services:
     networks:
       - crypto-exchange-network
 
-  mongodb:
+  cryptoexchangedb:
     image: mongo
     container_name: crypto-exchange-mongodb
     environment:
       - PUID=1000
       - PGID=1000
+      - MONGO_INITDB_DATABASE=cryptoexchangedb
     volumes:
       - cryptoexchange-mongodb-data:/data/db
     ports:
