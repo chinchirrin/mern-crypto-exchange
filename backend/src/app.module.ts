@@ -12,7 +12,7 @@ import { GatewayModule } from './gateway/gateway.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    MongooseModule.forRoot('mongodb://localhost:27017/nest'),
+    MongooseModule.forRoot('mongodb://cryptoexchangedb:27017/cryptoexchangedb'),
     ScheduleModule.forRoot(),
     CurrencyExchangeModule,
     CryptoPricesModule,
